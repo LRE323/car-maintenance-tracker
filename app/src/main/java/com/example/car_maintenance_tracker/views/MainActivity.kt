@@ -1,4 +1,4 @@
-package com.example.car_maintenance_tracker
+package com.example.car_maintenance_tracker.views
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
