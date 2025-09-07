@@ -1,5 +1,6 @@
 package com.example.car_maintenance_tracker.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -39,8 +40,13 @@ class NavigationActivity : ComponentActivity() {
         return NavigationScreenOnClicks(
             onClickViewVehicles = { onClickButtonToast("Clicked View Vehicles") },
             onClickLogItem = { onClickButtonToast("Clicked Log Item") },
-            onClickCreateNewVehicle = { onClickButtonToast("Clicked Create New Vehicle") }
+            onClickCreateNewVehicle = { launchCreateNewVehicleActivity() }
         )
+    }
+
+    private fun launchCreateNewVehicleActivity() {
+        val intent = Intent(this, AddVehicleActivity::class.java)
+        startActivity(intent)
     }
 
     private fun onClickButtonToast(message: String) {
