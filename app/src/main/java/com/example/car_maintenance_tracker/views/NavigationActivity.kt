@@ -69,7 +69,6 @@ private fun NavigationScreen(
         .fillMaxSize()
         .padding(innerPadding)
         .padding(horizontal = 16.dp)
-        .background(color = Color.Red)
 
     Column(
         modifier = modifier,
