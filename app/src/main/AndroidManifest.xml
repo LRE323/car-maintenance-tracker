@@ -18,7 +18,7 @@
             android:theme="@style/Theme.Car_maintenance_tracker">
         </activity>
         <activity
-            android:name=".views.NavigationActivity"
+            android:name=".ui.navigation.NavigationActivity"
             android:exported="true"
             android:theme="@style/Theme.Car_maintenance_tracker">
             <intent-filter>

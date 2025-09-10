@@ -1,4 +1,4 @@
-package com.example.car_maintenance_tracker.views
+package com.example.car_maintenance_tracker.ui.navigation
 
 import android.content.Intent
 import android.os.Bundle
