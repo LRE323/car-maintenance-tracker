@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import com.example.car_maintenance_tracker.ui.addvehicle.components.AddVehicleButton
 import com.example.car_maintenance_tracker.ui.addvehicle.components.VehicleMakeTextField
 import com.example.car_maintenance_tracker.ui.addvehicle.components.VehicleModelTextField
+import com.example.car_maintenance_tracker.ui.addvehicle.components.VehicleYearTextField
 import com.example.car_maintenance_tracker.ui.theme.CarMaintenanceTrackerTheme
 
 class AddVehicleActivity: ComponentActivity() {
@@ -56,6 +57,7 @@ fun AddVehicleScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        VehicleYearTextField()
         VehicleMakeTextField()
         VehicleModelTextField()
         AddVehicleButton(onClicks.onClickAddVehicle)
