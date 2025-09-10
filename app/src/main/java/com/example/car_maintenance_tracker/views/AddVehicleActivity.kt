@@ -31,7 +31,7 @@ class AddVehicleActivity: ComponentActivity() {
             CarMaintenanceTrackerTheme {
                 val scaffoldModifier = Modifier.fillMaxSize()
                 Scaffold(modifier = scaffoldModifier) { innerPadding ->
-                    AddVehicleScreen(innerPadding, getAddVehicleScreenOnClicks())
+                    AddVehicleScreen(innerPadding, getComposableLogic())
                 }
             }
         }
@@ -43,15 +43,37 @@ class AddVehicleActivity: ComponentActivity() {
         )
     }
 
+    private fun getOnValueChangeLogic(): OnValueChangeLogic {
+        return OnValueChangeLogic(
+            onVehicleMakeValueChange = ::onVehicleMakeValueChange
+        )
+    }
+
+    private fun getComposableLogic(): ComposableLogic {
+        return ComposableLogic(
+            onClicks = getAddVehicleScreenOnClicks(),
+            onValueChangeLogic = getOnValueChangeLogic()
+        )
+    }
+
     private fun onClickAddVehicle() {
         Toast.makeText(this, "Add Vehicle", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun onVehicleMakeValueChange(input: String): String {
+        val maxLength = 20
+        return if (input.length <= maxLength) {
+            input
+        } else {
+            input.take(maxLength)
+        }
     }
 }
 
 @Composable
 fun AddVehicleScreen(
     innerPadding: PaddingValues,
-    addVehicleScreenOnClicks: AddVehicleScreenOnClicks
+    composableLogic: ComposableLogic
 ) {
     val modifier = Modifier
         .fillMaxSize()
@@ -62,8 +84,8 @@ fun AddVehicleScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        VehicleMakeInput()
-        AddVehicleButton(addVehicleScreenOnClicks.onClickAddVehicle)
+        VehicleMakeInput(composableLogic.onValueChangeLogic.onVehicleMakeValueChange)
+        AddVehicleButton(composableLogic.onClicks.onClickAddVehicle)
     }
 }
 
@@ -77,22 +99,23 @@ fun AddVehicleButton(
 }
 
 @Composable
-fun VehicleMakeInput() {
+fun VehicleMakeInput(onVehicleMakeValueChange: (String) -> String) {
     var rememberInput by remember { mutableStateOf("") }
     val labelText = stringResource(R.string.vehicle_make_label)
 
-    fun onValueChange(input: String) {
-        if (input.length <= 15) {
-            rememberInput = input
-        }
-    }
-
     TextField(
         value = rememberInput,
-        onValueChange = ::onValueChange,
+        onValueChange = { rememberInput = onVehicleMakeValueChange(it) } ,
         label = { Text(text = labelText) },
         singleLine = true
         )
 }
 
+data class ComposableLogic(
+    val onClicks: AddVehicleScreenOnClicks,
+    val onValueChangeLogic: OnValueChangeLogic
+)
+
 data class AddVehicleScreenOnClicks(val onClickAddVehicle: () -> Unit)
+
+data class OnValueChangeLogic(val onVehicleMakeValueChange: (String) -> String)
