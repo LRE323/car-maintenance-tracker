@@ -1,4 +1,4 @@
-package com.example.car_maintenance_tracker.views
+package com.example.car_maintenance_tracker.ui.addvehicle
 
 import android.os.Bundle
 import android.widget.Toast
